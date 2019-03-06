@@ -195,7 +195,7 @@ void mncblas_zgemv(MNCBLAS_LAYOUT layout,
  * ===========================================================================
  */
 
-/*
+
 
 void mncblas_sgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
                  MNCBLAS_TRANSPOSE TransB, const int M, const int N,
@@ -221,4 +221,4 @@ void mncblas_zgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
                  const int lda, const void *B, const int ldb,
                  const void *beta, void *C, const int ldc);
 
-*/
+
