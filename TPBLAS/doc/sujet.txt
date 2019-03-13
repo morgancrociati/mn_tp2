@@ -89,6 +89,8 @@ obtenus en comparant les fonctions avec les différents types de
 données et aussi en comparant les résultats obtenus sur les BLAS1,
 BLAS2 et BLAS3.
 
+
+
 L'objectif du TP2 de MN est d'implémenter une partie des fonctions BLAS,
 de mesurer les performances de ces fonctions BLAS en calculant les GFLOP/s
 (GigaFlops par seconde) des fonctions.

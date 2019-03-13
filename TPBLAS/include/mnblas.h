@@ -1,4 +1,5 @@
-#include <stddef.h> //Maybe
+#include <stddef.h>
+#include <math.h>
 
 #define CBLAS_INDEX size_t /* this may vary between platforms */
 
