@@ -9,7 +9,7 @@ void mncblas_sswap(const int N, float *X, const int incX,
 
 	register float save;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		save = Y[j];
 		Y[j] = X[i];
@@ -27,7 +27,7 @@ void mncblas_dswap(const int N, double *X, const int incX,
 
 	register double save;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		save = Y[j];
 		Y[j] = X[i];
@@ -48,7 +48,7 @@ void mncblas_cswap(const int N, void *X, const int incX,
 
 	register complexe_float_t save;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		save = _Y[j];
 		_Y[j] = _X[i];
@@ -69,7 +69,7 @@ void mncblas_zswap(const int N, void *X, const int incX,
 
 	register complexe_double_t save;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		save = _Y[j];
 		_Y[j] = _X[i];

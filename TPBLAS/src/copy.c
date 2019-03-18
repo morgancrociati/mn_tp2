@@ -7,7 +7,7 @@ void mncblas_scopy(const int N, const float *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		Y[j] = X[i];
 	}
@@ -21,7 +21,7 @@ void mncblas_dcopy(const int N, const double *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		Y[j] = X[i];
 	}
@@ -38,7 +38,7 @@ void mncblas_ccopy(const int N, const void *X, const int incX,
 	register complexe_float_t *_X = X;
 	register complexe_float_t *_Y = Y;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		_Y[j] = _X[i];
 	}
@@ -55,7 +55,7 @@ void mncblas_zcopy(const int N, const void *X, const int incX,
 	register complexe_double_t *_X = X;
 	register complexe_double_t *_Y = Y;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		_Y[j] = _X[i];
 	}

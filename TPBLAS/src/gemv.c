@@ -19,6 +19,12 @@ if trans=CblasConjTrans, then y := alpha *conjg(A')*x + beta*y.
 */
 
 /*
+For Layout = CblasColMajor, k is n
+
+For Layout = CblasRowMajor, k is m
+*/
+
+/*
 use dot between A and X
 followed by axpy ?
 
@@ -31,23 +37,38 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 				   const float *X, const int incX, const float beta,
 				   float *Y, const int incY)
 {
-	register unsigned int i;
-	register unsigned int j;
+	register unsigned int i = 0;
+	register unsigned int j = 0;
 
 	if (TransA == MNCblasNoTrans)
 	{
-		for (i = 0; (i < M); i += incY)
+		for (; (i < (1 + (M - 1) * abs(incY))); i += incY)
 		{
 			Y[i] = beta * Y[i];
+
+			//Y[i] += alpha * dot(N, A + i * N, 1, X, incX); //Maybe that but layout not checked
+
+			if (layout == MNCblasRowMajor) /*M*/
+			{
+				Y[i] += alpha * dot(N, A + i, M, X, incX);
+			}
+			else /*layout == MNCblasColMajor*/ /*N*/
+			{
+				Y[i] += alpha * dot(N, A + i * N, 1, X, incX);
+			}
 		}
 	}
 	else
 	{
-		for (i = 0; (i < N); i += incY)
+		for (i = 0; (i < (1 + (N - 1) * abs(incY))); i += incY)
 		{
 			Y[i] = beta * Y[i];
 		}
 	}
+
+
+
+	//Old
 
 	if (TransA == MNCblasNoTrans)
 	{
@@ -57,11 +78,11 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 			{
 				if (layout == MNCblasRowMajor)
 				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i*M, 1);
+					Y[i] = alpha * X[j] * mnblas_sasum(M * N, A + i * M, 1);
 				}
 				else
 				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i, M);
+					Y[i] = alpha * X[j] * mnblas_sasum(M * N, A + i, M);
 				}
 			}
 		}
@@ -74,11 +95,11 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 			{
 				if (layout != MNCblasRowMajor)
 				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i*M, 1);
+					Y[i] = alpha * X[j] * mnblas_sasum(M * N, A + i * M, 1);
 				}
 				else
 				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i, M);
+					Y[i] = alpha * X[j] * mnblas_sasum(M * N, A + i, M);
 				}
 			}
 		}

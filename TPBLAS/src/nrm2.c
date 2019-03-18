@@ -7,7 +7,7 @@ float mnblas_snrm2(const int N, const float *X, const int incX)
 
 	register float result = 0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		result = result + X[i]*X[i];
 	}
@@ -21,7 +21,7 @@ double mnblas_dnrm2(const int N, const double *X, const int incX)
 
 	register double result = 0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		result = result + X[i]*X[i];
 	}
@@ -37,7 +37,7 @@ float mnblas_scnrm2(const int N, const void *X, const int incX)
 
 	register float result = 0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		result = result + _X[i].imaginary*_X[i].imaginary + _X[i].real*_X[i].real;
 	}
@@ -53,7 +53,7 @@ double mnblas_dznrm2(const int N, const void *X, const int incX)
 
 	register double result = 0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		result = result + _X[i].imaginary*_X[i].imaginary + _X[i].real*_X[i].real;
 	}

@@ -9,7 +9,7 @@ float mnblas_sasum(const int N, const float *X, const int incX)
 
 	register float sum = 0.0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		sum = sum + abs(X[i]);
 	}
@@ -23,7 +23,7 @@ double mnblas_dasum(const int N, const double *X, const int incX)
 
 	register double sum = 0.0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		sum = sum + abs(X[i]);
 	}
@@ -39,7 +39,7 @@ float mnblas_scasum(const int N, const void *X, const int incX)
 
 	register float sum = 0.0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		sum = sum + abs(_X[i].real) + abs(_X[i].imaginary);
 	}
@@ -55,7 +55,7 @@ double mnblas_dzasum(const int N, const void *X, const int incX)
 
 	register double sum = 0.0;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		sum = sum + abs(_X[i].real) + abs(_X[i].imaginary);
 	}

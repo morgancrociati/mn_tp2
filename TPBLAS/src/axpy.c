@@ -7,7 +7,7 @@ void mnblas_saxpy(const int N, const float alpha, const float *X,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		Y[j] = Y[j] + alpha * X[i];
 	}
@@ -21,7 +21,7 @@ void mnblas_daxpy(const int N, const double alpha, const double *X,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		Y[j] = Y[j] + alpha * X[i];
 	}
@@ -39,7 +39,7 @@ void mnblas_caxpy(const int N, const void *alpha, const void *X,
 	register complexe_float_t *_Y = Y;
 	register complexe_float_t *_alpha = alpha;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		*_Y = add_complexe_float(*_Y, mult_complexe_float(_X[i], *_alpha));
 	}
@@ -57,7 +57,7 @@ void mnblas_zaxpy(const int N, const void *alpha, const void *X,
 	register complexe_double_t *_Y = Y;
 	register complexe_double_t *_alpha = alpha;
 
-	for (; ((i < N) && (j < N)); i += incX, j += incY)
+	for (; ((i < (1 + (N - 1) * abs(incX))) && (j < (1 + (N - 1) * abs(incY)))); i += incX, j += incY)
 	{
 		*_Y = add_complexe_double(*_Y, mult_complexe_double(_X[i], *_alpha));
 	}

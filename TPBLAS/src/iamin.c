@@ -12,7 +12,7 @@ CBLAS_INDEX mnblas_isamin(const int N, const float *X, const int incX)
 
 	register float tmp;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		tmp = abs(X[i]);
 		if (tmp < value)
@@ -34,7 +34,7 @@ CBLAS_INDEX mnblas_idamin(const int N, const double *X, const int incX)
 
 	register double tmp;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		tmp = abs(X[i]);
 		if (tmp < value)
@@ -58,7 +58,7 @@ CBLAS_INDEX mnblas_icamin(const int N, const void *X, const int incX)
 
 	register float tmp;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		tmp = abs(_X[i].real) + abs(_X[i].imaginary);
 		if (tmp < value)
@@ -82,7 +82,7 @@ CBLAS_INDEX mnblas_izamin(const int N, const void *X, const int incX)
 
 	register double tmp;
 
-	for (; (i < N); i += incX)
+	for (; (i < (1 + (N - 1) * abs(incX))); i += incX)
 	{
 		tmp = abs(_X[i].real) + abs(_X[i].imaginary);
 		if (tmp < value)
