@@ -39,8 +39,8 @@ void mncblas_cdotu_sub(const int N, const void *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 	
-	register complexe_float_t *_X = X;
-	register complexe_float_t *_Y = Y;
+	const register complexe_float_t *_X = X;
+	const register complexe_float_t *_Y = Y;
 
 	register complexe_float_t *_dotu = dotu;
 	_dotu->real = 0.0;
@@ -60,8 +60,8 @@ void mncblas_cdotc_sub(const int N, const void *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 	
-	register complexe_float_t *_X = X;
-	register complexe_float_t *_Y = Y;
+	const register complexe_float_t *_X = X;
+	const register complexe_float_t *_Y = Y;
 
 	register complexe_float_t *_dotc = dotc;
 	_dotc->real = 0.0;
@@ -81,8 +81,8 @@ void mncblas_zdotu_sub(const int N, const void *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 	
-	register complexe_double_t *_X = X;
-	register complexe_double_t *_Y = Y;
+	const register complexe_double_t *_X = X;
+	const register complexe_double_t *_Y = Y;
 
 	register complexe_double_t *_dotu = dotu;
 	_dotu->real = 0.0;
@@ -102,8 +102,8 @@ void mncblas_zdotc_sub(const int N, const void *X, const int incX,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 	
-	register complexe_double_t *_X = X;
-	register complexe_double_t *_Y = Y;
+	const register complexe_double_t *_X = X;
+	const register complexe_double_t *_Y = Y;
 
 	register complexe_double_t *_dotc = dotc;
 	_dotc->real = 0.0;
