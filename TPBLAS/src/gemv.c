@@ -25,6 +25,11 @@ followed by axpy ?
 Maybe just dot and do it in line
 */
 
+/*
+layout == rowMajor
+TransA == CBlasNoTrans
+*/
+
 void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 				   const MNCBLAS_TRANSPOSE TransA, const int M, const int N,
 				   const float alpha, const float *A, const int lda,
@@ -34,55 +39,7 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 	register unsigned int i;
 	register unsigned int j;
 
-	if (TransA == MNCblasNoTrans)
-	{
-		for (i = 0; (i < M); i += incY)
-		{
-			Y[i] = beta * Y[i];
-		}
-	}
-	else
-	{
-		for (i = 0; (i < N); i += incY)
-		{
-			Y[i] = beta * Y[i];
-		}
-	}
-
-	if (TransA == MNCblasNoTrans)
-	{
-		for (i = 0; (i < M); i += incY)
-		{
-			for (j = 0; (j < M); j += incX)
-			{
-				if (layout == MNCblasRowMajor)
-				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i*M, 1);
-				}
-				else
-				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i, M);
-				}
-			}
-		}
-	}
-	else
-	{
-		for (i = 0; (i < N); i += incY)
-		{
-			for (j = 0; (j < N); j += incX)
-			{
-				if (layout != MNCblasRowMajor)
-				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i*M, 1);
-				}
-				else
-				{
-					Y[i] = alpha * X[j] * mnblas_sasum(M*N, A + i, M);
-				}
-			}
-		}
-	}
+	
 }
 
 void mncblas_dgemv(MNCBLAS_LAYOUT layout,
