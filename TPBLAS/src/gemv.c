@@ -19,15 +19,8 @@ if trans=CblasConjTrans, then y := alpha *conjg(A')*x + beta*y.
 */
 
 /*
-use dot between A and X
-followed by axpy ?
-
-Maybe just dot and do it in line
-*/
-
-/*
 layout == rowMajor
-TransA == CBlasNoTrans
+TransA == MNCblasNoTrans
 */
 
 void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
@@ -37,25 +30,89 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 				   float *Y, const int incY)
 {
 	register unsigned int i;
-	register unsigned int j;
 
-	
+	//TransA == MNCblasNoTrans)
+	for (i = 0; (i < M); i += incY)
+	{
+		Y[i] = beta * Y[i];
+
+		//layout == MNCblasRowMajor
+		Y[i] += alpha * mncblas_sdot(N, A + i * N, 1, X, incX);
+	}
 }
 
 void mncblas_dgemv(MNCBLAS_LAYOUT layout,
 				   MNCBLAS_TRANSPOSE TransA, const int M, const int N,
 				   const double alpha, const double *A, const int lda,
 				   const double *X, const int incX, const double beta,
-				   double *Y, const int incY);
+				   double *Y, const int incY)
+{
+	register unsigned int i;
+
+	//TransA == MNCblasNoTrans)
+	for (i = 0; (i < M); i += incY)
+	{
+		Y[i] = beta * Y[i];
+
+		//layout == MNCblasRowMajor
+		Y[i] += alpha * mncblas_ddot(N, A + i * N, 1, X, incX);
+	}
+}
 
 void mncblas_cgemv(MNCBLAS_LAYOUT layout,
 				   MNCBLAS_TRANSPOSE TransA, const int M, const int N,
 				   const void *alpha, const void *A, const int lda,
 				   const void *X, const int incX, const void *beta,
-				   void *Y, const int incY);
+				   void *Y, const int incY)
+{
+	register unsigned int i;
+
+	register complexe_float_t *_alpha = alpha;
+	register complexe_float_t *_beta = beta;
+	register complexe_float_t *_X = X;
+	register complexe_float_t *_Y = Y;
+	register complexe_float_t *_A = A;
+
+	register complexe_float_t tmp;
+
+	//TransA == MNCblasNoTrans)
+	for (i = 0; (i < M); i += incY)
+	{
+		tmp.imaginary = _Y[i].imaginary;
+		tmp.real = _Y[i].real;
+
+		//layout == MNCblasRowMajor
+		mncblas_cdotu_sub(N, _A + i * N, 1, _X, incX, _Y + i);
+
+		_Y[i] = add_complexe_float(mult_complexe_float(tmp, *_beta), mult_complexe_float(_Y[i], *_alpha));
+	}
+}
 
 void mncblas_zgemv(MNCBLAS_LAYOUT layout,
 				   MNCBLAS_TRANSPOSE TransA, const int M, const int N,
 				   const void *alpha, const void *A, const int lda,
 				   const void *X, const int incX, const void *beta,
-				   void *Y, const int incY);
+				   void *Y, const int incY)
+{
+	register unsigned int i;
+
+	register complexe_double_t *_alpha = alpha;
+	register complexe_double_t *_beta = beta;
+	register complexe_double_t *_X = X;
+	register complexe_double_t *_Y = Y;
+	register complexe_double_t *_A = A;
+
+	register complexe_double_t tmp;
+
+	//TransA == MNCblasNoTrans)
+	for (i = 0; (i < M); i += incY)
+	{
+		tmp.imaginary = _Y[i].imaginary;
+		tmp.real = _Y[i].real;
+
+		//layout == MNCblasRowMajor
+		mncblas_zdotu_sub(N, _A + i * N, 1, _X, incX, _Y + i);
+
+		_Y[i] = add_complexe_double(mult_complexe_double(tmp, *_beta), mult_complexe_double(_Y[i], *_alpha));
+	}
+}
