@@ -51,7 +51,7 @@ CBLAS_INDEX mnblas_icamin(const int N, const void *X, const int incX)
 {
 	register unsigned int i = 0;
 
-	register complexe_float_t *_X = X;
+	const register complexe_float_t *_X = X;
 
 	register CBLAS_INDEX pos = 0;
 	register float value = abs(_X[0].real) + abs(_X[0].imaginary); //Not mandatory //Might cause a bug if X is NULL
@@ -75,7 +75,7 @@ CBLAS_INDEX mnblas_izamin(const int N, const void *X, const int incX)
 {
 	register unsigned int i = 0;
 
-	register complexe_double_t *_X = X;
+	const register complexe_double_t *_X = X;
 
 	register CBLAS_INDEX pos = 0;
 	register double value = abs(_X[0].real) + abs(_X[0].imaginary); //Not mandatory //Might cause a bug if X is NULL
