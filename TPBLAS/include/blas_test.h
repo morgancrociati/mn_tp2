@@ -8,7 +8,7 @@
 
 #define TEST_SIZE 128
 
-static const float duree_cycle = (float) 1 / (float) 2.6 ;
+static const double duree_cycle = ((double) 1 / (double) 2.6);
 // duree du cycle en nano seconde 10^-9
 
 void calcul_flop (char *message, unsigned int nb_operations_flottantes, unsigned long long int cycles);

@@ -5,9 +5,9 @@
 #include "complexe.h"
 #include "blas_test.h"
 
-#define VECSIZE 1024*2*2*2*2*2*2*2*2*2
+#define VECSIZE 4096
 
-#define NB_FOIS 1000
+#define NB_FOIS 512
 
 int main(int argc, char **argv)
 {
