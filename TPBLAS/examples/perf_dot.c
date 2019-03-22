@@ -99,7 +99,7 @@ int main(int argc, char **argv)
         end = _rdtsc();
 
         printf("mncblas_cdotc_sub %d : res = %3.2f nombre de cycles: %Ld \n", i, res_c, end - start);
-        calcul_flop("cdotc_sub ", 2 * VECSIZE, end - start);
+        calcul_flop("cdotc_sub ", 8 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
         end = _rdtsc();
 
         printf("mncblas_cdotu_sub %d : res = %3.2f nombre de cycles: %Ld \n", i, res_c, end - start);
-        calcul_flop("cdotu_sub ", 2 * VECSIZE, end - start);
+        calcul_flop("cdotu_sub ", 8 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
         end = _rdtsc();
 
         printf("mncblas_zdotu_sub %d : res = %3.2f nombre de cycles: %Ld \n", i, res_z, end - start);
-        calcul_flop("zdotu_sub ", 2 * VECSIZE, end - start);
+        calcul_flop("zdotu_sub ", 8 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -138,6 +138,6 @@ int main(int argc, char **argv)
         end = _rdtsc();
 
         printf("mncblas_zdotc_sub %d : res = %3.2f nombre de cycles: %Ld \n", i, res_z, end - start);
-        calcul_flop("zdotc_sub ", 2 * VECSIZE, end - start);
+        calcul_flop("zdotc_sub ", 8 * VECSIZE, end - start);
     }
 }

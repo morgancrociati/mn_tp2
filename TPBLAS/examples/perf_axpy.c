@@ -102,7 +102,7 @@ int main(int argc, char **argv)
         printf("mncblas_caxpy %d : ", i);
         vector_print_f(vec6);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("caxpy ", 2 * VECSIZE, end - start);
+        calcul_flop("caxpy ", 8 * VECSIZE, end - start);
     }
     for (i = 0; i < NB_FOIS; i++)
     {
@@ -119,6 +119,6 @@ int main(int argc, char **argv)
         printf("mncblas_zaxpy %d : ", i);
         vector_print_f(vec8);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("zaxpy ", 2 * VECSIZE, end - start);
+        calcul_flop("zaxpy ", 8 * VECSIZE, end - start);
     }
 }
