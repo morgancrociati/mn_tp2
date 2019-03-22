@@ -37,7 +37,7 @@ void vector_print_c(complexe_float_t *V)
     register unsigned int i;
 
     for (i = 0; i < VECSIZE; i++)
-        printf("%f + i%f ", V[i].real, V[i].imaginary);
+        printf("(%f + i%f) ", V[i].real, V[i].imaginary);
     printf("\n");
 
     return;
@@ -48,7 +48,7 @@ void vector_print_z(complexe_double_t *V)
     register unsigned int i;
 
     for (i = 0; i < VECSIZE; i++)
-        printf("%f + i%f ", V[i].real, V[i].imaginary);
+        printf("(%f + i%f) ", V[i].real, V[i].imaginary);
     printf("\n");
 
     return;
