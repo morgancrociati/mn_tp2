@@ -35,9 +35,9 @@ void mnblas_caxpy(const int N, const void *alpha, const void *X,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	register complexe_float_t *_X = X;
+	register const complexe_float_t *_X = X;
 	register complexe_float_t *_Y = Y;
-	register complexe_float_t *_alpha = alpha;
+	register const complexe_float_t *_alpha = alpha;
 
 	for (; ((i < N) && (j < N)); i += incX, j += incY)
 	{
@@ -53,9 +53,9 @@ void mnblas_zaxpy(const int N, const void *alpha, const void *X,
 	register unsigned int i = 0;
 	register unsigned int j = 0;
 
-	register complexe_double_t *_X = X;
+	register const complexe_double_t *_X = X;
 	register complexe_double_t *_Y = Y;
-	register complexe_double_t *_alpha = alpha;
+	register const complexe_double_t *_alpha = alpha;
 
 	for (; ((i < N) && (j < N)); i += incX, j += incY)
 	{

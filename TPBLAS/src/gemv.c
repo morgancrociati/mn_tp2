@@ -67,11 +67,11 @@ void mncblas_cgemv(MNCBLAS_LAYOUT layout,
 {
 	register unsigned int i;
 
-	register complexe_float_t *_alpha = alpha;
-	register complexe_float_t *_beta = beta;
-	register complexe_float_t *_X = X;
+	register const complexe_float_t *_alpha = alpha;
+	register const complexe_float_t *_beta = beta;
+	register const complexe_float_t *_X = X;
 	register complexe_float_t *_Y = Y;
-	register complexe_float_t *_A = A;
+	register const complexe_float_t *_A = A;
 
 	register complexe_float_t tmp;
 
@@ -96,11 +96,11 @@ void mncblas_zgemv(MNCBLAS_LAYOUT layout,
 {
 	register unsigned int i;
 
-	register complexe_double_t *_alpha = alpha;
-	register complexe_double_t *_beta = beta;
-	register complexe_double_t *_X = X;
+	register const complexe_double_t *_alpha = alpha;
+	register const complexe_double_t *_beta = beta;
+	register const complexe_double_t *_X = X;
 	register complexe_double_t *_Y = Y;
-	register complexe_double_t *_A = A;
+	register const complexe_double_t *_A = A;
 
 	register complexe_double_t tmp;
 

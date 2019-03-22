@@ -1,3 +1,5 @@
+#include <math.h>
+
 #include "mnblas.h"
 #include "complexe.h"
 

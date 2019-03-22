@@ -25,4 +25,8 @@ complexe_float_t conjg_complexe_float(const complexe_float_t c);
 
 complexe_double_t conjg_complexe_double(const complexe_double_t c);
 
+int equal_complexe_float(const complexe_float_t c1, const complexe_float_t c2);
+
+int equal_complexe_double(const complexe_double_t z1, const complexe_double_t z2);
+
 #endif

@@ -1,56 +1,38 @@
 #include <stdio.h>
-#include <x86intrin.h>
+#include <assert.h>
 
 #include "mnblas.h"
 #include "complexe.h"
+#include "blas_test.h"
 
-#include "flop.h"
+int main(void){
+	//Test float
+	float* s1 = new_s_full(TEST_SIZE);
+	float* s2 = new_s_full(TEST_SIZE);
 
-#define VECSIZE    1024
+	assert(mncblas_sdot(TEST_SIZE, s1, 1, s2, 1) == mncblas_sdot(TEST_SIZE, s2, 1, s1, 1));
 
-#define NB_FOIS    5
+	//Test double
+	double* d1 = new_d_full(TEST_SIZE);
+	double* d2 = new_d_full(TEST_SIZE);
 
-typedef float vfloat [VECSIZE] ;
+	assert(mncblas_ddot(TEST_SIZE, d1, 1, d2, 1) == mncblas_ddot(TEST_SIZE, d2, 1, d1, 1));
 
-vfloat vec1, vec2 ;
+	/*
+	//Test complexe float
+	complexe_float_t* c1 = new_c_full(TEST_SIZE);
+	complexe_float_t* c2 = new_c_full(TEST_SIZE);
 
-void vector_init (vfloat V, float x)
-{
-  register unsigned int i ;
+	assert(mncblas_cdot(TEST_SIZE, c1, 1, c2, 1) == mncblas_cdot(TEST_SIZE, c2, 1, c1, 1));
 
-  for (i = 0; i < VECSIZE; i++)
-    V [i] = x ;
+	//Test complexe double
+	complexe_double_t* z1 = new_z_full(TEST_SIZE);
+	complexe_double_t* z2 = new_z_full(TEST_SIZE);
 
-  return ;
-}
+	assert(mncblas_zdot(TEST_SIZE, z1, 1, z2, 1) == mncblas_zdot(TEST_SIZE, z2, 1, z1, 1));
+	*/
 
-void vector_print (vfloat V)
-{
-  register unsigned int i ;
+	printf("Test dot: passed\n");
 
-  for (i = 0; i < VECSIZE; i++)
-    printf ("%f ", V[i]) ;
-  printf ("\n") ;
-  
-  return ;
-}
-
-int main (int argc, char **argv)
-{
- unsigned long long start, end ;
- float res ;
- int i ;
-
- for (i = 0 ; i < NB_FOIS; i++)
-   {
-     vector_init (vec1, 1.0) ;
-     vector_init (vec2, 2.0) ;
-
-     start = _rdtsc () ;
-        res = mncblas_sdot (VECSIZE, vec1, 1, vec2, 1) ;
-     end = _rdtsc () ;
-     
-     printf ("mncblas_sdot %d : res = %3.2f nombre de cycles: %Ld \n", i, res, end-start) ;
-     calcul_flop ("sdot ", 2 * VECSIZE, end-start) ;
-   }
+	return 1;
 }
