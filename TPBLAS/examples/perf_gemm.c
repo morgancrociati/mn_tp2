@@ -97,7 +97,7 @@ int main(int argc, char **argv)
         printf("mncblas_sgemm %d : ", i);
         vector_print_f(C);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("sgemm ", 2 * VECSIZE, end - start);
+        calcul_flop("sgemm ", 4 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
         printf("mncblas_dgemm %d : ", i);
         vector_print_f(C);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("dgemm ", 2 * VECSIZE, end - start);
+        calcul_flop("dgemm ", 4 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
         printf("mncblas_cgemm %d : ", i);
         vector_print_f(C);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("cgemm ", 2 * VECSIZE, end - start);
+        calcul_flop("cgemm ", 22 * VECSIZE, end - start);
     }
 
     for (i = 0; i < NB_FOIS; i++)
@@ -157,6 +157,6 @@ int main(int argc, char **argv)
         printf("mncblas_zgemm %d : ", i);
         vector_print_f(C);
         printf("nombre de cycles: %Ld \n", end - start);
-        calcul_flop("zgemm ", 2 * VECSIZE, end - start);
+        calcul_flop("zgemm ", 22 * VECSIZE, end - start);
     }
 }
