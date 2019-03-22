@@ -35,7 +35,7 @@ float mnblas_scnrm2(const int N, const void *X, const int incX)
 {
 	register unsigned int i = 0;
 
-	register complexe_float_t *_X = X;
+	const register complexe_float_t *_X = X;
 
 	register float result = 0;
 
@@ -51,7 +51,7 @@ double mnblas_dznrm2(const int N, const void *X, const int incX)
 {
 	register unsigned int i = 0;
 
-	register complexe_double_t *_X = X;
+	const register complexe_double_t *_X = X;
 
 	register double result = 0;
 
