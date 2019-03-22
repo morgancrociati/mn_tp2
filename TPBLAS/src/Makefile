@@ -4,7 +4,7 @@
 LIB_DIR=../lib
 INC_DIR=../include
 
-FUNC = complexe.o copy.o swap.o dot.o axpy.o asum.o iamax.o iamin.o nrm2.o gemv.o blas_test.o
+FUNC = complexe.o copy.o swap.o dot.o axpy.o asum.o iamax.o iamin.o nrm2.o gemv.o gemm.o blas_test.o
 
 OPTIONS=-Wall -fPIC $(OPTIM) -I$(INC_DIR)
 
@@ -61,6 +61,9 @@ gemv.o : gemv.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h
 	gcc  $(OPTIONS) -c $<
 
 # BLAS 3
+
+gemm.o : gemm.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h
+	gcc  $(OPTIONS) -c $<
 
 # Tests
 

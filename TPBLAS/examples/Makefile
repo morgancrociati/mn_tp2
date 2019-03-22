@@ -1,6 +1,8 @@
-PRGM = test_dot test_copy test_axpy
+TEST_PRGM = test_dot test_copy test_axpy
 
-all: $(PRGM)
+PERF_PRGM = perf_copy
+
+all: $(TEST_PRGM) $(PERF_PRGM)
 
 INC_DIR=../include
 
@@ -20,6 +22,8 @@ OPTIONS_LINK_DYN  = -L$(LIB_DIR) $(LIBDYN)
 #test_dot_dyn: test_dot.o flop.o
 #	gcc -o test_dot_dyn flop.o test_dot.o $(OPTIONS_LINK_DYN)
 
+#Test Programs
+
 test_dot: test_dot.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
@@ -38,5 +42,13 @@ test_copy.o: test_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/bl
 test_axpy.o: test_axpy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
 	gcc $(OPTIONS_COMPIL) -c $<
 
+#Perf programs
+
+perf_copy: perf_copy.o $(LIB_DIR)/libmnblas.a
+	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
+
+perf_copy.o: perf_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
+	gcc $(OPTIONS_COMPIL) -c $<
+
 clean:
-	rm -f *.o $(PRGM) *~
+	rm -f *.o $(TEST_PRGM) $(PERF_PRGM) *~

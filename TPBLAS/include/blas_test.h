@@ -11,7 +11,9 @@
 static const float duree_cycle = (float) 1 / (float) 2.6 ;
 // duree du cycle en nano seconde 10^-9
 
-void calcul_flop (char *message, int nb_operations_flottantes, unsigned long long int cycles);
+void calcul_flop (char *message, unsigned int nb_operations_flottantes, unsigned long long int cycles);
+
+void calcul_octet(char *message, unsigned int nb_octet, unsigned long long int cycles);
 
 float* new_s(unsigned int size);
 

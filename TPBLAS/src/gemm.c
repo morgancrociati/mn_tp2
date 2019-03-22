@@ -51,7 +51,7 @@ void mncblas_cgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 		tmp.imaginary = _C[i].imaginary;
 		tmp.real = _C[i].real;
 
-		mncblas_cdotu_sub(K, A + i * K,1, B + i, N, _C + i);
+		mncblas_cdotu_sub(K, _A + i * K,1, _B + i, N, _C + i);
 		_C[i] = add_complexe_float( mult_complexe_float(_C[i],*_beta),mult_complexe_float(*_alpha,_C[i]));
 	}
 }
@@ -76,7 +76,7 @@ void mncblas_zgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 		tmp.imaginary = _C[i].imaginary;
 		tmp.real = _C[i].real;
 
-		mncblas_zdotu_sub(K, A + i * K, 1, B + i, N, _C + i);
+		mncblas_zdotu_sub(K, _A + i * K, 1, _B + i, N, _C + i);
 		_C[i] = add_complexe_double( mult_complexe_double(_C[i],*_beta),mult_complexe_double(*_alpha,_C[i]));
 	}
 }
