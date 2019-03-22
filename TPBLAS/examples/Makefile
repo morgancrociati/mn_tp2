@@ -1,4 +1,4 @@
-TEST_PRGM = test_dot test_copy test_axpy
+TEST_PRGM = test_dot test_copy test_axpy test_swap
 
 PERF_PRGM = perf_copy
 
@@ -6,7 +6,7 @@ all: $(TEST_PRGM) $(PERF_PRGM)
 
 INC_DIR=../include
 
-LIB_DIR=../lib
+LIB_DIR=../src
 
 LIBST=-lmnblas
 LIBDYN=-lmnblasdyn
@@ -33,21 +33,16 @@ test_copy: test_copy.o $(LIB_DIR)/libmnblas.a
 test_axpy: test_axpy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
-test_dot.o: test_dot.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
-
-test_copy.o: test_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
-
-test_axpy.o: test_axpy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
+test_swap: test_swap.o $(LIB_DIR)/libmnblas.a
+	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
 #Perf programs
 
 perf_copy: perf_copy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
-perf_copy.o: perf_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
+
+%.o: %.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
 	gcc $(OPTIONS_COMPIL) -c $<
 
 clean:
