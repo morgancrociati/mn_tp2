@@ -23,10 +23,6 @@ OPTIONS_LINK_DYN  = -L$(LIB_DIR) $(LIBDYN)
 #	gcc -o test_dot_dyn flop.o test_dot.o $(OPTIONS_LINK_DYN)
 
 #Test Programs
-
-test_dot: test_dot.o $(LIB_DIR)/libmnblas.a
-	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
-
 test_copy: test_copy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
