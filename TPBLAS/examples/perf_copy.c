@@ -57,10 +57,6 @@ void vector_print_z(complexe_double_t *V)
 int main(int argc, char **argv)
 {
     unsigned long long start, end;
-    float res_f;
-    double res_d;
-    complexe_float_t res_c;
-    complexe_double_t res_z;
     int i;
 
     for (i = 0; i < NB_FOIS; i++)
@@ -69,11 +65,13 @@ int main(int argc, char **argv)
         float *vec2 = new_s_full(VECSIZE);
 
         start = _rdtsc();
-        res_f = mncblas_sdot(VECSIZE, vec1, 1, vec2, 1);
+        mncblas_scopy(VECSIZE, vec1, 1, vec2, 1);
         end = _rdtsc();
 
-        printf("mncblas_sdot %d : res = %3.2f nombre de cycles: %Ld \n", i, res_f, end - start);
-        calcul_flop("sdot ", 2 * VECSIZE, end - start);
+        printf("mncblas_scopy %d : ", i);
+        vector_print_f(vec2);
+        printf("nombre de cycles: %Ld \n", end - start);
+        calcul_flop("scopy ", 2 * VECSIZE, end - start);
     }
     for (i = 0; i < NB_FOIS; i++)
     {
@@ -81,11 +79,13 @@ int main(int argc, char **argv)
         double *vec4 = new_d_full(VECSIZE);
 
         start = _rdtsc();
-        res_f = mncblas_ddot(VECSIZE, vec3, 1, vec4, 1);
+        mncblas_dcopy(VECSIZE, vec3, 1, vec4, 1);
         end = _rdtsc();
 
-        printf("mncblas_ddot %d : res = %3.2f nombre de cycles: %Ld \n", i, res_f, end - start);
-        calcul_flop("ddot ", 2 * VECSIZE, end - start);
+        printf("mncblas_dcopy %d : ", i);
+        vector_print_f(vec4);
+        printf("nombre de cycles: %Ld \n", end - start);
+        calcul_flop("dcopy ", 2 * VECSIZE, end - start);
     }
     for (i = 0; i < NB_FOIS; i++)
     {
@@ -93,11 +93,13 @@ int main(int argc, char **argv)
         complexe_float_t *vec6 = new_c_full(VECSIZE);
 
         start = _rdtsc();
-        res_f = mncblas_cdot(VECSIZE, vec5, 1, vec6, 1);
+        mncblas_ccopy(VECSIZE, vec5, 1, vec6, 1);
         end = _rdtsc();
 
-        printf("mncblas_cdot %d : res = %3.2f nombre de cycles: %Ld \n", i, res_f, end - start);
-        calcul_flop("cdot ", 2 * VECSIZE, end - start);
+        printf("mncblas_ccopy %d : ", i);
+        vector_print_f(vec6);
+        printf("nombre de cycles: %Ld \n", end - start);
+        calcul_flop("ccopy ", 2 * VECSIZE, end - start);
     }
     for (i = 0; i < NB_FOIS; i++)
     {
@@ -105,10 +107,12 @@ int main(int argc, char **argv)
         complexe_double_t *vec8 = new_z_full(VECSIZE);
 
         start = _rdtsc();
-        res_f = mncblas_zdot(VECSIZE, vec7, 1, vec8, 1);
+        mncblas_zcopy(VECSIZE, vec7, 1, vec8, 1);
         end = _rdtsc();
 
-        printf("mncblas_zdot %d : res = %3.2f nombre de cycles: %Ld \n", i, res_f, end - start);
-        calcul_flop("zdot ", 2 * VECSIZE, end - start);
+        printf("mncblas_zcopy %d : ", i);
+        vector_print_f(vec8);
+        printf("nombre de cycles: %Ld \n", end - start);
+        calcul_flop("zcopy ", 2 * VECSIZE, end - start);
     }
 }
