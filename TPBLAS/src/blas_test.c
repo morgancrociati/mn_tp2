@@ -20,7 +20,7 @@ void calcul_flop(char *message, unsigned int nb_operations_flottantes, unsigned 
 
 void calcul_octet(char *message, unsigned int nb_octet, unsigned long long int cycles)
 {
-	printf("%s | %u octets | %5.3lf octet(s)/s\n", message, nb_octet, ((double)nb_octet) / (((double)cycles) * (duree_cycle*1e-9)));
+	printf("%s | %u octets | %5.3lf Goctet(s)/s\n", message, nb_octet, ((double)nb_octet) / (((double)cycles) * (duree_cycle)));
 }
 
 float *new_s(unsigned int size)

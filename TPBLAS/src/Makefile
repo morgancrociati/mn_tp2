@@ -25,7 +25,7 @@ libmnblasdyn.so: $(FUNC)
 	cp libmnblasdyn.so $(LIB_DIR)
 
 
-%.o: %.c $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
+%.o: %.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
 	gcc  $(OPTIONS) -c $<
 
 clean:

@@ -1,6 +1,6 @@
 TEST_PRGM = test_dot test_copy test_axpy test_swap
 
-PERF_PRGM = perf_copy
+PERF_PRGM = perf_copy perf_dot perf_axpy
 
 all: $(TEST_PRGM) $(PERF_PRGM)
 
@@ -41,6 +41,11 @@ test_swap: test_swap.o $(LIB_DIR)/libmnblas.a
 perf_copy: perf_copy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
+perf_dot: perf_dot.o $(LIB_DIR)/libmnblas.a
+	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
+
+perf_axpy: perf_axpy.o $(LIB_DIR)/libmnblas.a
+	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
 %.o: %.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
 	gcc $(OPTIONS_COMPIL) -c $<
