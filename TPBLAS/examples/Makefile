@@ -33,21 +33,13 @@ test_copy: test_copy.o $(LIB_DIR)/libmnblas.a
 test_axpy: test_axpy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
-test_dot.o: test_dot.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
-
-test_copy.o: test_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
-
-test_axpy.o: test_axpy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
-	gcc $(OPTIONS_COMPIL) -c $<
-
 #Perf programs
 
 perf_copy: perf_copy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
-perf_copy.o: perf_copy.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
+
+%.o: %.c $(INC_DIR)/mnblas.h $(INC_DIR)/complexe.h $(INC_DIR)/blas_test.h
 	gcc $(OPTIONS_COMPIL) -c $<
 
 clean:
