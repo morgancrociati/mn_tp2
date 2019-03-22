@@ -17,7 +17,7 @@ int main(void){
 	mncblas_scopy(TEST_SIZE, s1, 1, s1bis, 1);
 	mncblas_scopy(TEST_SIZE, s2, 1, s2bis, 1);
 
-	mnblas_sswap(TEST_SIZE, s1, 1, s2, 1);
+	mncblas_sswap(TEST_SIZE, s1, 1, s2, 1);
 
 
 	for(i = 0; i < TEST_SIZE; i++){
@@ -34,7 +34,7 @@ int main(void){
 	mncblas_dcopy(TEST_SIZE, d1, 1, d1bis, 1);
 	mncblas_dcopy(TEST_SIZE, d2, 1, d2bis, 1);
 
-	mnblas_dswap(TEST_SIZE, d1, 1, d2, 1);
+	mncblas_dswap(TEST_SIZE, d1, 1, d2, 1);
 
 
 	for(i = 0; i < TEST_SIZE; i++){
@@ -51,7 +51,7 @@ int main(void){
 	mncblas_ccopy(TEST_SIZE, c1, 1, c1bis, 1);
 	mncblas_ccopy(TEST_SIZE, c2, 1, c2bis, 1);
 
-	mnblas_cswap(TEST_SIZE, c1, 1, c2, 1);
+	mncblas_cswap(TEST_SIZE, c1, 1, c2, 1);
 
 	for(i = 0; i < TEST_SIZE; i++){
 		assert(equal_complexe_float(c2[i], c1bis[i]));
@@ -68,7 +68,7 @@ int main(void){
 	mncblas_zcopy(TEST_SIZE, z1, 1, z1bis, 1);
 	mncblas_zcopy(TEST_SIZE, z2, 1, z2bis, 1);
 
-	mnblas_zswap(TEST_SIZE, z1, 1, z2, 1);
+	mncblas_zswap(TEST_SIZE, z1, 1, z2, 1);
 
 
 	for(i = 0; i < TEST_SIZE; i++){

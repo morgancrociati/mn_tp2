@@ -1,4 +1,4 @@
-TEST_PRGM = test_dot test_copy test_axpy
+TEST_PRGM = test_dot test_copy test_axpy test_swap
 
 PERF_PRGM = perf_copy
 
@@ -6,7 +6,7 @@ all: $(TEST_PRGM) $(PERF_PRGM)
 
 INC_DIR=../include
 
-LIB_DIR=../lib
+LIB_DIR=../src
 
 LIBST=-lmnblas
 LIBDYN=-lmnblasdyn
@@ -31,6 +31,9 @@ test_copy: test_copy.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
 test_axpy: test_axpy.o $(LIB_DIR)/libmnblas.a
+	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
+
+test_swap: test_swap.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
 
 #Perf programs
