@@ -15,12 +15,18 @@ void init_rand(void){
 
 void calcul_flop(char *message, unsigned long long int nb_operations_flottantes, unsigned long long int cycles)
 {
-	printf("%s | %llu operations | %5.3lf GFLOP/s\n", message, nb_operations_flottantes, ((double)nb_operations_flottantes) / (((double)cycles) * duree_cycle));
+	printf("Fonction %s:\n", message);
+	printf("\t%llu nombre total d'operations\n", nb_operations_flottantes);
+	printf("\t%llu nombre total de cycles\n", cycles);
+	printf("\t%5.3lf GFLOP/s\n", ((double)nb_operations_flottantes) / (((double)cycles) * duree_cycle));
 }
 
 void calcul_octet(char *message, unsigned long long int nb_octet, unsigned long long int cycles)
 {
-	printf("%s | %llu octets | %5.3lf Goctet(s)/s\n", message, nb_octet, ((double)nb_octet) / (((double)cycles) * (duree_cycle)));
+	printf("Fonction %s:\n", message);
+	printf("\t%llu nombre total d'octets\n", nb_octet);
+	printf("\t%llu nombre total de cycles\n", cycles);
+	printf("\t%5.3lf Goctet(s)/s\n", ((double)nb_octet) / (((double)cycles) * (duree_cycle)));
 }
 
 float *new_s(unsigned int size)

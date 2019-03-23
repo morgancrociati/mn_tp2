@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <x86intrin.h>
-
+#include <cblas.h>
 #include "mnblas.h"
 #include "complexe.h"
 #include "blas_test.h"
@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 	register unsigned long long end;
 	register unsigned long i;
 
+	printf("MNCBLAS:\n");
 	//Perf float
 	float *vec1 = new_s_full(VECSIZE);
 	float *vec2 = new_s(VECSIZE);
@@ -22,8 +23,6 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_scopy(VECSIZE, vec1, 1, vec2, 1);
 	end = _rdtsc();
-	printf("mncblas_scopy:\n\t");
-	printf("nombre de cycles: %Ld\n\t", end - start);
 	calcul_octet("scopy ", NB_FOIS * VECSIZE * sizeof(float), end - start);
 
 	//Perf double
@@ -33,8 +32,6 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_dcopy(VECSIZE, vec3, 1, vec4, 1);
 	end = _rdtsc();
-	printf("mncblas_dcopy:\n\t");
-	printf("nombre de cycles: %Ld\n\t", end - start);
 	calcul_octet("dcopy ", NB_FOIS * VECSIZE * sizeof(double), end - start);
 
 	//Perf complexe float
@@ -44,8 +41,6 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_ccopy(VECSIZE, vec5, 1, vec6, 1);
 	end = _rdtsc();
-	printf("mncblas_ccopy:\n\t");
-	printf("nombre de cycles: %Ld\n\t", end - start);
 	calcul_octet("ccopy ", NB_FOIS * 2 * VECSIZE * sizeof(complexe_float_t), end - start);
 
 	//Perf complexe double
@@ -55,7 +50,36 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_zcopy(VECSIZE, vec7, 1, vec8, 1);
 	end = _rdtsc();
-	printf("mncblas_zcopy:\n\t");
-	printf("nombre de cycles: %Ld\n\t", end - start);
 	calcul_octet("zcopy ", NB_FOIS * 2 * VECSIZE * sizeof(complexe_double_t), end - start);
+
+//----------------------------------------------------------------------------------------
+	printf("\nCBLAS:\n");
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_scopy(VECSIZE, vec1, 1, vec2, 1);
+	end = _rdtsc();
+	calcul_octet("scopy ", NB_FOIS * VECSIZE * sizeof(float), end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_dcopy(VECSIZE, vec3, 1, vec4, 1);
+	end = _rdtsc();
+	calcul_octet("dcopy ", NB_FOIS * VECSIZE * sizeof(double), end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_ccopy(VECSIZE, vec5, 1, vec6, 1);
+	end = _rdtsc();
+	calcul_octet("ccopy ", NB_FOIS * 2 * VECSIZE * sizeof(complexe_float_t), end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_zcopy(VECSIZE, vec7, 1, vec8, 1);
+	end = _rdtsc();
+	calcul_octet("zcopy ", NB_FOIS * 2 * VECSIZE * sizeof(complexe_double_t), end - start);
+
+	return 0;
 }

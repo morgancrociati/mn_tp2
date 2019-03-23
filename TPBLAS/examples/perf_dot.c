@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <x86intrin.h>
-
+#include <cblas.h>
 #include "mnblas.h"
 #include "complexe.h"
 #include "blas_test.h"
 
-#define VECSIZE 4096
+#define VECSIZE 512
 
-#define NB_FOIS 512
+#define NB_FOIS 256
 
 int main(int argc, char **argv)
 {
@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 	complexe_double_t res_z;
 	register unsigned long i;
 
+	printf("MNCBLAS:\n");
 	float *vec1 = new_s_full(VECSIZE);
 	float *vec2 = new_s_full(VECSIZE);
 	start = _rdtsc();
@@ -62,4 +63,44 @@ int main(int argc, char **argv)
 		mncblas_zdotc_sub(VECSIZE, vec7, 1, vec8, 1, &res_z);
 	end = _rdtsc();
 	calcul_flop("zdotc_sub ", NB_FOIS * 9 * VECSIZE, end - start);
+
+//-------------------------------------------------------------------------------
+	printf("\nCBLAS:\n");
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		res_s = cblas_sdot(VECSIZE, vec1, 1, vec2, 1);
+	end = _rdtsc();
+	calcul_flop("sdot ", NB_FOIS * 2 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		res_d = cblas_ddot(VECSIZE, vec3, 1, vec4, 1);
+	end = _rdtsc();
+	calcul_flop("ddot ", NB_FOIS * 2 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_cdotu_sub(VECSIZE, vec5, 1, vec6, 1, &res_c);
+	end = _rdtsc();
+	calcul_flop("cdotu_sub ", NB_FOIS * 8 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_cdotc_sub(VECSIZE, vec5, 1, vec6, 1, &res_c);
+	end = _rdtsc();
+	calcul_flop("cdotc_sub ", NB_FOIS * 9 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_zdotu_sub(VECSIZE, vec7, 1, vec8, 1, &res_z);
+	end = _rdtsc();
+	calcul_flop("zdotu_sub ", NB_FOIS * 8 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_zdotc_sub(VECSIZE, vec7, 1, vec8, 1, &res_z);
+	end = _rdtsc();
+	calcul_flop("zdotc_sub ", NB_FOIS * 9 * VECSIZE, end - start);
+
+	return 0;
 }

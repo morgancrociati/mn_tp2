@@ -6,6 +6,7 @@ INC_DIR=../include
 
 FUNC = complexe.o copy.o swap.o dot.o axpy.o asum.o iamax.o iamin.o nrm2.o gemv.o gemm.o blas_test.o
 
+OPTIM = -O3
 OPTIONS=-Wall -fPIC $(OPTIM) -I$(INC_DIR)
 
 all: libmnblas.a libmnblasdyn.so

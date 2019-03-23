@@ -6,14 +6,16 @@ all: $(TEST_PRGM) $(PERF_PRGM)
 
 INC_DIR=../include
 
-LIB_DIR=../src
+LIB_DIR=../lib
+
+INC_BLAS=-lcblas
 
 LIBST=-lmnblas
 LIBDYN=-lmnblasdyn
 
 OPTIONS_COMPIL  =-Wall -fPIC -I$(INC_DIR)
 
-OPTIONS_LINK_STATIC  =   -L$(LIB_DIR) $(LIBST)  
+OPTIONS_LINK_STATIC  =   -L$(LIB_DIR) $(LIBST) $(INC_BLAS)
 OPTIONS_LINK_DYN  = -L$(LIB_DIR) $(LIBDYN)  
 
 #test_dot: test_dot.o flop.o $(LIB_DIR)/libmnblas.a
@@ -34,6 +36,7 @@ test_axpy: test_axpy.o $(LIB_DIR)/libmnblas.a
 
 test_swap: test_swap.o $(LIB_DIR)/libmnblas.a
 	gcc $(OPTIONS_COMPIL) -o $@ $< $(OPTIONS_LINK_STATIC)
+
 
 #Perf programs
 
