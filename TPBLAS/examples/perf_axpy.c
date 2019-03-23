@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <x86intrin.h>
-
+#include <cblas.h>
 #include "mnblas.h"
 #include "complexe.h"
 #include "blas_test.h"
@@ -48,4 +48,35 @@ int main(int argc, char **argv)
 		mnblas_zaxpy(VECSIZE, &a2, vec7, 1, vec8, 1);
 	end = _rdtsc();
 	calcul_flop("zaxpy ", NB_FOIS*8 * VECSIZE, end - start);
+
+//-----------------------------------------------------------------------------
+	printf("\n\n");
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_saxpy(VECSIZE, 5.0, vec1, 1, vec2, 1);
+	end = _rdtsc();
+	calcul_flop("saxpy ", NB_FOIS*2 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_daxpy(VECSIZE, 5.0, vec3, 1, vec4, 1);
+	end = _rdtsc();
+	calcul_flop("daxpy ", NB_FOIS*2 * VECSIZE, end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_caxpy(VECSIZE, &a1, vec5, 1, vec6, 1);
+	end = _rdtsc();
+	calcul_flop("caxpy ", NB_FOIS*8 * VECSIZE, end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_zaxpy(VECSIZE, &a2, vec7, 1, vec8, 1);
+	end = _rdtsc();
+	calcul_flop("zaxpy ", NB_FOIS*8 * VECSIZE, end - start);
+
+
+	return 0;
 }

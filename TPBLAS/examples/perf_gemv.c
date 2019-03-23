@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <x86intrin.h>
-
+#include <cblas.h>
 #include "mnblas.h"
 #include "complexe.h"
 #include "blas_test.h"
@@ -55,4 +55,35 @@ int main(int argc, char **argv)
 		mncblas_zgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, &a2, A4, 1, vec7, 1, &b2, vec8, 1);
 	end = _rdtsc();
 	calcul_flop("zgemv ", 22 * VECSIZE, end - start);
+
+//-------------------------------------------------------------------------------------
+
+	printf("\n\n");
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_sgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, 5.0, A1, MATSIZE, vec1, 1, 5.0, vec2, 1);
+	end = _rdtsc();
+	calcul_flop("sgemv ", 4 * VECSIZE, end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_dgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, 5.0, A2, MATSIZE, vec3, 1, 5.0, vec4, 1);
+	end = _rdtsc();
+	calcul_flop("dgemv ", 4 * VECSIZE, end - start);
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_cgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, &a1, A3, MATSIZE, vec5, 1, &b1, vec6, 1);
+	end = _rdtsc();
+	calcul_flop("cgemv ", 22 * VECSIZE, end - start);
+
+
+	start = _rdtsc();
+	for (i = 0; i < NB_FOIS; i++)
+		cblas_zgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, &a2, A4, MATSIZE, vec7, 1, &b2, vec8, 1);
+	end = _rdtsc();
+	calcul_flop("zgemv ", 22 * VECSIZE, end - start);
+
+	return 0;
 }
