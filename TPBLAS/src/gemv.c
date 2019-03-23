@@ -37,7 +37,7 @@ void mncblas_sgemv(const MNCBLAS_LAYOUT layout,
 		Y[i] = beta * Y[i];
 
 		//layout == MNCblasRowMajor
-		Y[i] += alpha * mncblas_sdot(N, A + i * N, 1, X, incX);
+		Y[i] = Y[i] + alpha * mncblas_sdot(N, A + i * N, 1, X, incX);
 	}
 }
 
@@ -55,7 +55,7 @@ void mncblas_dgemv(MNCBLAS_LAYOUT layout,
 		Y[i] = beta * Y[i];
 
 		//layout == MNCblasRowMajor
-		Y[i] += alpha * mncblas_ddot(N, A + i * N, 1, X, incX);
+		Y[i] = Y[i] + alpha * mncblas_ddot(N, A + i * N, 1, X, incX);
 	}
 }
 

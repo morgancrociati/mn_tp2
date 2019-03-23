@@ -5,16 +5,16 @@
 #include "complexe.h"
 #include "blas_test.h"
 
-#define VECSIZE 2048
-#define MATSIZE 1024
+#define VECSIZE 512
+#define MATSIZE 512
 
-#define NB_FOIS 512
+#define NB_FOIS 128
 
 int main(int argc, char **argv)
 {
-	register unsigned long long start;
-	register unsigned long long end;
-	register unsigned long i;
+	unsigned long long start;
+	unsigned long long end;
+	unsigned long long i;
 
 	float *vec1 = new_s_full(VECSIZE);
 	float *vec2 = new_s_full(VECSIZE);
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_sgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, 5.0, A1, 1, vec1, 1, 5.0, vec2, 1);
 	end = _rdtsc();
-	calcul_flop("sgemv ", 4 * VECSIZE, end - start);
+	calcul_flop("sgemv ", NB_FOIS * MATSIZE * (2 * VECSIZE + 3), end - start);
 
 	double *vec3 = new_d_full(VECSIZE);
 	double *vec4 = new_d_full(VECSIZE);
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_dgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, 5.0, A2, 1, vec3, 1, 5.0, vec4, 1);
 	end = _rdtsc();
-	calcul_flop("dgemv ", 4 * VECSIZE, end - start);
+	calcul_flop("dgemv ", NB_FOIS * MATSIZE * (2 * VECSIZE + 3), end - start);
 
 	complexe_float_t *vec5 = new_c_full(VECSIZE);
 	complexe_float_t *vec6 = new_c_full(VECSIZE);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_cgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, &a1, A3, 1, vec5, 1, &b1, vec6, 1);
 	end = _rdtsc();
-	calcul_flop("cgemv ", 22 * VECSIZE, end - start);
+	calcul_flop("cgemv ", NB_FOIS * MATSIZE * (8 * VECSIZE + 8), end - start);
 
 	complexe_double_t *vec7 = new_z_full(VECSIZE);
 	complexe_double_t *vec8 = new_z_full(VECSIZE);
@@ -54,5 +54,5 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_zgemv(MNCblasRowMajor, MNCblasNoTrans, VECSIZE, MATSIZE, &a2, A4, 1, vec7, 1, &b2, vec8, 1);
 	end = _rdtsc();
-	calcul_flop("zgemv ", 22 * VECSIZE, end - start);
+	calcul_flop("zgemv ", NB_FOIS * MATSIZE * (8 * VECSIZE + 8), end - start);
 }

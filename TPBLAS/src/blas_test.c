@@ -13,14 +13,14 @@ void init_rand(void){
 	srand(time(NULL));
 }
 
-void calcul_flop(char *message, unsigned int nb_operations_flottantes, unsigned long long int cycles)
+void calcul_flop(char *message, unsigned long long int nb_operations_flottantes, unsigned long long int cycles)
 {
-	printf("%s | %u operations | %5.3lf GFLOP/s\n", message, nb_operations_flottantes, ((double)nb_operations_flottantes) / (((double)cycles) * duree_cycle));
+	printf("%s | %llu operations | %5.3lf GFLOP/s\n", message, nb_operations_flottantes, ((double)nb_operations_flottantes) / (((double)cycles) * duree_cycle));
 }
 
-void calcul_octet(char *message, unsigned int nb_octet, unsigned long long int cycles)
+void calcul_octet(char *message, unsigned long long int nb_octet, unsigned long long int cycles)
 {
-	printf("%s | %u octets | %5.3lf Goctet(s)/s\n", message, nb_octet, ((double)nb_octet) / (((double)cycles) * (duree_cycle)));
+	printf("%s | %llu octets | %5.3lf Goctet(s)/s\n", message, nb_octet, ((double)nb_octet) / (((double)cycles) * (duree_cycle)));
 }
 
 float *new_s(unsigned int size)

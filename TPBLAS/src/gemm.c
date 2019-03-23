@@ -9,10 +9,10 @@ void mncblas_sgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 {
 	register unsigned int i;
 
-	for (i = 0; (i < M*N); i++)
+	for (i = 0; (i < M * N); i++)
 	{
-		C[i] = C[i]*beta;
-		C[i] += alpha * mncblas_sdot(K, A + i * K,1, B + i, N);
+		C[i] = C[i] * beta;
+		C[i] = C[i] + alpha * mncblas_sdot(K, A + i * K, 1, B + i, N);
 	}
 }
 
@@ -24,10 +24,10 @@ void mncblas_dgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 {
 	register unsigned int i;
 
-	for (i = 0; (i < M*N); i++)
+	for (i = 0; (i < M * N); i++)
 	{
-		C[i] = C[i]*beta;
-		C[i] += alpha * mncblas_ddot(K, A + i * K, 1, B + i, N);
+		C[i] = C[i] * beta;
+		C[i] = C[i] + alpha * mncblas_ddot(K, A + i * K, 1, B + i, N);
 	}
 }
 
@@ -46,13 +46,13 @@ void mncblas_cgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 	const register complexe_float_t *_beta = beta;
 	const register complexe_float_t *_alpha = alpha;
 
-	for (i = 0; (i < M*N); i++)
+	for (i = 0; (i < M * N); i++)
 	{
 		tmp.imaginary = _C[i].imaginary;
 		tmp.real = _C[i].real;
 
-		mncblas_cdotu_sub(K, _A + i * K,1, _B + i, N, _C + i);
-		_C[i] = add_complexe_float( mult_complexe_float(tmp,*_beta),mult_complexe_float(*_alpha,_C[i]));
+		mncblas_cdotu_sub(K, _A + i * K, 1, _B + i, N, _C + i);
+		_C[i] = add_complexe_float(mult_complexe_float(tmp, *_beta), mult_complexe_float(*_alpha, _C[i]));
 	}
 }
 
@@ -71,12 +71,12 @@ void mncblas_zgemm(MNCBLAS_LAYOUT layout, MNCBLAS_TRANSPOSE TransA,
 	const register complexe_double_t *_beta = beta;
 	const register complexe_double_t *_alpha = alpha;
 
-	for (i = 0; (i < M*N); i++)
+	for (i = 0; (i < M * N); i++)
 	{
 		tmp.imaginary = _C[i].imaginary;
 		tmp.real = _C[i].real;
 
 		mncblas_zdotu_sub(K, _A + i * K, 1, _B + i, N, _C + i);
-		_C[i] = add_complexe_double( mult_complexe_double(tmp,*_beta),mult_complexe_double(*_alpha,_C[i]));
+		_C[i] = add_complexe_double(mult_complexe_double(tmp, *_beta), mult_complexe_double(*_alpha, _C[i]));
 	}
 }

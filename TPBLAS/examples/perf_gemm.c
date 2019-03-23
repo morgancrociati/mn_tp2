@@ -5,12 +5,12 @@
 #include "complexe.h"
 #include "blas_test.h"
 
-#define VECSIZE 128
-#define M 128
-#define N 128
-#define K 128
+#define MATSIZE 32
+#define M MATSIZE
+#define N MATSIZE
+#define K MATSIZE
 
-#define NB_FOIS 512
+#define NB_FOIS 128
 
 int main(int argc, char **argv)
 {
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_sgemm(MNCblasRowMajor, MNCblasNoTrans, MNCblasNoTrans, M, N, K, 5.0, A1, 1, B1, 1, 5.0, C1, 1);
 	end = _rdtsc();
-	calcul_flop("sgemm ", 4 * VECSIZE, end - start);
+	calcul_flop("sgemm ", NB_FOIS*M*N*(K + 2), end - start);
 
 	double *C2 = new_d_full(M * N);
 	double *B2 = new_d_full(M * K);
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_dgemm(MNCblasRowMajor, MNCblasNoTrans, MNCblasNoTrans, M, N, K, 5.0, A2, 1, B2, 1, 5.0, C2, 1);
 	end = _rdtsc();
-	calcul_flop("dgemm ", 4 * VECSIZE, end - start);
+	calcul_flop("dgemm ", NB_FOIS*M*N*(K + 2), end - start);
 
 	complexe_float_t *C3 = new_c_full(M * N);
 	complexe_float_t *B3 = new_c_full(M * K);
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_cgemm(MNCblasRowMajor, MNCblasNoTrans, MNCblasNoTrans, M, N, K, &a1, A3, 1, B3, 1, &b1, C3, 1);
 	end = _rdtsc();
-	calcul_flop("cgemm ", 22 * VECSIZE, end - start);
+	calcul_flop("cgemm ", NB_FOIS*M*N*(K + 8), end - start);
 
 	complexe_double_t *C4 = new_z_full(M * N);
 	complexe_double_t *B4 = new_z_full(M * K);
@@ -55,5 +55,5 @@ int main(int argc, char **argv)
 	for (i = 0; i < NB_FOIS; i++)
 		mncblas_zgemm(MNCblasRowMajor, MNCblasNoTrans, MNCblasNoTrans, M, N, K, &a2, A4, 1, B4, 1, &b2, C4, 1);
 	end = _rdtsc();
-	calcul_flop("zgemm ", 22 * VECSIZE, end - start);
+	calcul_flop("zgemm ", NB_FOIS*M*N*(K + 8), end - start);
 }
