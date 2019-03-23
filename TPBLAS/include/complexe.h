@@ -9,8 +9,8 @@ typedef struct c
 
 typedef struct z
 {
-	float real;
-	float imaginary;
+	double real;
+	double imaginary;
 } complexe_double_t;
 
 complexe_float_t add_complexe_float(const complexe_float_t c1, const complexe_float_t c2);
